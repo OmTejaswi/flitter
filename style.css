@@ -1,0 +1,49 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  background-image: linear-gradient(to left bottom, #48e200, #1cd47e, #13ceb5, #179ce9, #1c6ef3); 
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
+.header
+{
+	color: white;font-family: 'Indie Flower', cursive;font-size: 45px;letter-spacing: 10px;margin-top: 0px;
+}
+.header img{
+  width: 80px;margin-left: -15px;
+}
+.box {
+  position: relative;
+  border-radius: 15px;
+  width: 50%;
+  background: #88E4D5;
+} 
+
+h3, h4, label {
+  position: relative;
+  z-index: 9999999;
+  font-weight: normal;
+}
+h4 {
+  line-height: 0px;
+}
+
+input {
+  border: 0px solid;
+  height: 30px;
+}
+ .btns {
+   background: #36EB8B;
+   border: 1px solid;
+   border-radius: 15px;
+   height: 30px;
+   width: 80%;
+ }
+ .btns:hover
+ {
+  background: #00ff77;;
+  cursor: pointer;
+ }
