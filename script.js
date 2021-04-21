@@ -44,8 +44,7 @@ function btnPressed(){
             playerCount: pc,
         })
 }
-    for(var i = 0; i < names.length; i++) {
-        if(document.getElementById("input").value !== names[i]) {
+    if(names.includes(document.getElementById("input").value) === false) {
             pc += 1;
             localStorage.setItem("user",user);
     
@@ -56,8 +55,6 @@ function btnPressed(){
                 playerCount: pc,
             })
             names.push(user)
-        }
-        
-    } 
+    }
     
 }
