@@ -28,7 +28,9 @@ function draw(){
             limit = 1;
         }
     }
-   console.log(names);
+    if(names.includes(document.getElementById("input").value.toLowerCase()) === true) {
+        window.location.replace("./rooms")
+    }
 }
 
 function btnPressed(){
@@ -43,8 +45,9 @@ function btnPressed(){
         db.ref("/").update({
             playerCount: pc,
         })
+        window.location.replace("./rooms")
 }
-    if(names.includes(document.getElementById("input").value) === false) {
+    if(names.includes(document.getElementById("input").value.toLowerCase()) === false) {
             pc += 1;
             localStorage.setItem("user",user);
     
@@ -55,6 +58,10 @@ function btnPressed(){
                 playerCount: pc,
             })
             names.push(user)
+            window.location.replace("./rooms")
+    }
+    if(names.includes(document.getElementById("input").value.toLowerCase()) === true) {
+        console.error("Name Already Exists")
     }
     
 }

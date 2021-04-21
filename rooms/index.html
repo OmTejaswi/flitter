@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en-us">
+    <head>
+        <title>Flitter</title>
+
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+        <script src="../libraries/p5.js"></script>
+        <script src="../libraries/p5.play.js"></script>
+        <script src="../libraries/p5.sound.js"></script>
+        <script src="../libraries/p5.dom.min.js"></script>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBcS7xFTFl1PX7NjoiWIqjO9sxgGDL1bZo",
+            authDomain: "chatting-f5662.firebaseapp.com",
+            databaseURL: "https://chatting-f5662-default-rtdb.firebaseio.com",
+            projectId: "chatting-f5662",
+            storageBucket: "chatting-f5662.appspot.com",
+            messagingSenderId: "755590112622",
+            appId: "1:755590112622:web:16cbad782f84d990740d7f"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        </script>
+
+    </head>
+
+    <body>
+        <center>
+            <h1 class="header" >	
+              &nbsp; Flitter	
+            <img src="../assest/m2.png">
+           </h1>
+           <br>
+           <button id="logout" class="logoutBtn" onclick="logout()">
+            <b><span class="material-icons"> logout</span> Logout</b></button>
+            <h3 id="greet"></h3>
+        </center>
+        <h3 id="greet"></h3>
+        <script src="script.js"></script>
+    </body>
+</html>
