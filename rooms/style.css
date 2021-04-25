@@ -32,10 +32,10 @@ html, body {
   .header img{
     width: 80px;margin-left: -15px;
   }
-  .box {
+  #box {
     position: relative;
     border-radius: 15px;
-    width: 50%;
+    width: 80%;
     background: #88E4D5;
   } 
   #greet , #addroom{
@@ -60,4 +60,13 @@ html, body {
     padding: 10px;
     cursor: pointer;
   }
+  .room_name
+{
+	cursor: pointer;
+	font-size: 20px;
+}
+.trending {
+  color: white;
+  font-size: 25px;
+}
  
