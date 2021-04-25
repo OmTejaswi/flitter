@@ -39,7 +39,7 @@ var db = firebase.database();
             
             if(roomLimit === 0 && roomsName.length === rc) {
                 for(var i = 0; i < roomsName.length; i++) {
-                    rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><hr>"
+                    rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><br><hr><br>"
                     document.getElementById("box").innerHTML += rows;
                     roomLimit = 1;
                 }

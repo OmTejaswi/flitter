@@ -64,9 +64,16 @@ html, body {
 {
 	cursor: pointer;
 	font-size: 20px;
+  color: white;
+  font-weight: bold;
+  font-family: 'Indie Flower', cursive;
+  letter-spacing: 2px;
 }
 .trending {
   color: white;
+  font-weight: bold;
   font-size: 25px;
+  letter-spacing: 5px;
+  font-family: 'Indie Flower', cursive;
 }
  
