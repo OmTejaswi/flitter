@@ -34,7 +34,8 @@ db.ref("playerCount").on("value",function(data){
 function btnPressed(){
     var user = document.getElementById("input").value;
     if(user !== "") {
-        if(names.includes(document.getElementById("input").value.toLowerCase()) === false) {
+        if(names.includes(document.getElementById("input").value.toLowerCase()) === false &&
+           names.includes(document.getElementById("input").value.toUpperCase()) === false) {
                 pc += 1;
                 db.ref("/").update({
                     playerCount: pc,
@@ -46,7 +47,8 @@ function btnPressed(){
                 names.push(user);
                 window.location.replace("./rooms")
         }
-        if(names.includes(document.getElementById("input").value.toLowerCase()) === true) {
+        if(names.includes(document.getElementById("input").value.toLowerCase()) === true ||
+        names.includes(document.getElementById("input").value.toUpperCase()) === true) {
             console.error("Name Already Exists")
             window.location.replace("./rooms")
         }

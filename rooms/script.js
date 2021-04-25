@@ -61,7 +61,8 @@ var db = firebase.database();
 function addroom(){
     if(document.getElementById("room_name").value !== "" &&
         document.getElementById("room_password").value !== "") {
-            if(roomsName.includes(document.getElementById("room_name").value) === false) {
+            if(roomsName.includes(document.getElementById("room_name").value.toLowerCase()) === false &&
+            roomsName.includes(document.getElementById("room_name").value.toUpperCase()) === false) {
                 if(document.getElementById("room_name").value.includes(" ") === false) {
                     rc+= 1;
                     db.ref("/").update({
