@@ -8,7 +8,7 @@ var roomLimit = 0
 var rows;
 var db = firebase.database();
 
-    document.getElementById("greet").innerHTML = "Welcome " +user+ " ! <br>";
+    document.getElementById("greet").innerHTML = "Welcome " +user+ " !";
     document.getElementById("addroom").innerHTML = "#Add Room";
 
     var pc;
