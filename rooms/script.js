@@ -1,5 +1,3 @@
-const log = console.log;
-
 var user = localStorage.getItem("user");
 var greet;
 var roomsName = [];
@@ -44,7 +42,6 @@ var db = firebase.database();
                     rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><hr>"
                     document.getElementById("box").innerHTML += rows;
                     roomLimit = 1;
-                    log(roomLimit)
                 }
             }
         }
