@@ -39,8 +39,14 @@ var db = firebase.database();
             
             if(roomLimit === 0 && roomsName.length === rc) {
                 for(var i = 0; i < roomsName.length; i++) {
-                    rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><br><hr><br>"
+                    rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><br>"
                     document.getElementById("box").innerHTML += rows;
+                    if(i !== roomsName.length-1) {
+                        document.getElementById("box").innerHTML += "<hr><br>";
+                    }
+                    if( i === roomsName.length-1) {
+                        document.getElementById("box").innerHTML += "<br>";
+                    }
                     roomLimit = 1;
                 }
             }
@@ -49,11 +55,14 @@ var db = firebase.database();
     function redirect(name){
         localStorage.setItem("roomname",name);
         var passcode = prompt("Password:")
-        if(roomsName.indexOf(name) === password.indexOf(passcode)) {
-            window.location.replace("./yourroom")
-        } else {
-            alert("Incorrect Password")
-        }
+            if(passcode !== null) {
+                if(roomsName.indexOf(name) === password.indexOf(passcode)) {
+                    localStorage.setItem("index",roomsName.indexOf(name)+1)
+                    window.location.replace("./yourroom")
+                } else {
+                    alert("Incorrect Password")
+                }
+            }
         
     }
    
@@ -87,12 +96,13 @@ function addroom(){
                     }
                     localStorage.setItem("roomname",document.getElementById("room_name").value);
                     if(roomsName.indexOf(document.getElementById("room_name").value) === password.indexOf(document.getElementById("room_password").value)) {
+                        localStorage.setItem("index",roomsName.indexOf(document.getElementById("room_name").value)+1)
                         window.location.replace("./yourroom")
                     } else {
                         alert("Incorrect Password")
                     }
                } else {
-                   alert("Please Enter A Valid Syntax")
+                   alert("Please Enter A Valid Syntax For Room Name")
                }
             } else {
                 alert("Room Already Exists")

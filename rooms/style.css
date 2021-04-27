@@ -76,4 +76,9 @@ html, body {
   letter-spacing: 5px;
   font-family: 'Indie Flower', cursive;
 }
+hr {
+  width: 95%;
+  border: 0.5px solid white;
+}
+
  

@@ -1,0 +1,62 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background-image: linear-gradient(to left bottom, #48e200, #1cd47e, #13ceb5, #179ce9, #1c6ef3); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  canvas {
+    display: block;
+  }
+  .header
+  {
+      color: white;font-family: 'Indie Flower', cursive;font-size: 45px;letter-spacing: 10px;margin-top: 0px;
+      letter-spacing: 17px;
+  }
+  .header img{
+    width: 80px;margin-left: -15px;
+  }
+  #box {
+    position: relative;
+    border-radius: 15px;
+    width: 60%;
+    background: #88E4D5;
+    text-align: left;
+  } 
+  hr {
+    width: 98%;
+    border: 0.5px solid white;
+  }
+  .input_div {
+    position: fixed;bottom: 0px;width: 100%;background: rgba(255,255,255,0.7);
+    line-height: 12px;
+  }
+  .input_div input {
+    border: 0px solid;
+    height: 30px;
+    width: 70%;
+  }
+  .input_div label {
+    font-weight: bolder;
+  }
+  #send {
+    border: 1px solid;
+    color: white;
+    border-radius: 5px;
+    background-color :rgb(54, 235, 139);
+    padding: 10px;
+    width: 50%;
+    cursor: pointer;
+  }
+  #send:hover{
+    background-color: rgb(6, 182, 88);;
+  }
+  .user_tick {
+    width:20px;
+  }
+  .conversation{
+    line-height: 30px;
+  }
+  .user_message{
+    color: #818080;
+  }
