@@ -57,6 +57,16 @@ function showMessages(){
     
 }
 setInterval(function(){
+    if(limit === 2) {
+        var localroomindex = rooms.indexOf(localStorage.getItem("roomname"));
+        var localindex = localStorage.getItem("index");
+        if(localStorage.getItem("user") === null ||
+        localStorage.getItem("index") === null ||
+        localStorage.getItem("roomname") === null) {
+            window.location.replace("../../");
+        }
+    }
+
     if(msgLimit === 1 && messages.length !== msg) {
         updateMessage = 1
     }
