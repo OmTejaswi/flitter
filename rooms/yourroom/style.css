@@ -60,3 +60,18 @@ html, body {
   .user_message{
     color: #818080;
   }
+  .logoutBtn {
+    cursor: pointer;
+    background: #36EB8B;
+    border: 1px solid;
+    border-radius: 5px;
+    position: absolute;
+    left: 88%;
+    top: 10%;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+   }
+   .logoutBtn:hover{
+     background: #C9302C;
+   }

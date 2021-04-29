@@ -104,5 +104,8 @@ function send(){
         
     }
 }
-
-
+function logout(){
+    localStorage.removeItem("index");
+    localStorage.removeItem("roomname");
+    window.location.replace("../../")
+}
