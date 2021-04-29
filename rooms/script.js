@@ -72,7 +72,8 @@ function addroom(){
         document.getElementById("room_password").value !== "") {
             if(roomsName.includes(document.getElementById("room_name").value.toLowerCase()) === false &&
             roomsName.includes(document.getElementById("room_name").value.toUpperCase()) === false) {
-                if(document.getElementById("room_name").value.includes(" ") === false) {
+                if(document.getElementById("room_name").value.includes(" ") === false &&
+                    document.getElementById("room_name").value.charAt(0) !== "#") {
                     rc+= 1;
                     db.ref("/").update({
                         roomCount: rc

@@ -70,18 +70,18 @@ setInterval(function(){
                 rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[msg-1]+"</b>&nbsp;<img class='user_tick' src='tick.png'><br><b class='user_message'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+messages[msg-1]+"</b></div>"
             })
             updateMessage = 2;
-            if(updateMessage === 2 && messages.length === msg) {
-                // if(msg-1 !== messages.length-1) {
-                //     document.getElementById("box").innerHTML += "<hr>"
-                // }
-               
-                document.getElementById("box").innerHTML += rows;
-                // if(msg !== messages.length-1) {
-                //     document.getElementById("box").innerHTML += "<hr>"
-                // }
-                updateMessage = 0;
-            }
         }  
+    }
+    if(updateMessage === 2 && messages.length === msg) {
+        if(msg-2 !== messages.length-1) {
+            document.getElementById("box").innerHTML += "<hr>"
+        }
+       
+        document.getElementById("box").innerHTML += rows;
+        if(msg-1 !== messages.length-1) {
+            document.getElementById("box").innerHTML += "<hr>"
+        }
+        updateMessage = 0;
     }
     
 },1000)
@@ -101,30 +101,6 @@ function send(){
             sender: user,
         })
         document.getElementById("message").value = "";
-        
-        if(messages.length !== msg) {
-            for(var i = msg; i < msg+1; i++) {
-                db.ref("rooms/room"+roomindex+"/messages/message"+i+"/message").on("value",function(data){
-                    messages.push(data.val());
-                })
-                db.ref("rooms/room"+roomindex+"/messages/message"+i+"/sender").on("value",function(data){
-                    senders.push(data.val());
-                })
-                
-            }
-            if(messages.length === msg) {
-                for(var i = msg-1; i < msg; i++) {
-                    if(i-1 !== messages.length-1) {
-                        document.getElementById("box").innerHTML += "<hr>"
-                    }
-                    rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'><br><b class='user_message'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+messages[i]+"</b></div>"
-                    document.getElementById("box").innerHTML += rows;
-                    if(i !== messages.length-1) {
-                        document.getElementById("box").innerHTML += "<hr>"
-                    }
-                }
-            }
-        }
         
     }
 }

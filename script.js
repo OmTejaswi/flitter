@@ -52,7 +52,7 @@ function btnPressed(){
 }
 function signup(){
     var user = document.getElementById("input").value;
-    if(user !== "") {
+    if(user !== "" && user !== "YOU".toLowerCase() && user !== "YOU") {
         if(nameslowercase.includes(document.getElementById("input").value.toLowerCase()) === false) {
                 passcode = prompt("Set Your Password:");
                 if(passcode !== null) {
