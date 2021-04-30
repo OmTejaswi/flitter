@@ -53,11 +53,11 @@ var db = firebase.database();
         }
     }
     function redirect(name){
-        localStorage.setItem("roomname",name);
         var passcode = prompt("Password:")
             if(passcode !== null) {
                 if(roomsName.indexOf(name) === password.indexOf(passcode)) {
                     localStorage.setItem("index",roomsName.indexOf(name)+1)
+                    localStorage.setItem("roomname",name);
                     window.location.replace("./yourroom")
                 } else {
                     alert("Incorrect Password")
@@ -112,6 +112,15 @@ function addroom(){
             alert("Please Input A Value")
         }
 }
+
+setInterval(() => {
+    setInterval(() => {
+        if(localStorage.getItem("user") === null ||
+         localStorage.getItem("user") === "") {
+             window.location.replace("../")
+         }
+    }, 1000);
+}, 3000);
 
 function logout(){
     localStorage.removeItem("user");

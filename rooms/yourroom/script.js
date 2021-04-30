@@ -57,16 +57,6 @@ function showMessages(){
     
 }
 setInterval(function(){
-    if(limit === 2) {
-        var localroomindex = rooms.indexOf(localStorage.getItem("roomname"));
-        var localindex = localStorage.getItem("index");
-        if(localStorage.getItem("user") === null ||
-        localStorage.getItem("index") === null ||
-        localStorage.getItem("roomname") === null) {
-            window.location.replace("../../");
-        }
-    }
-
     if(msgLimit === 1 && messages.length !== msg) {
         updateMessage = 1
     }
@@ -96,6 +86,26 @@ setInterval(function(){
     
 },1000)
 
+setTimeout(function(){
+    setInterval(() => {
+        if(limit === 2) {
+            var localroomindex = rooms.indexOf(localStorage.getItem("roomname"));
+            var localindex = localStorage.getItem("index");
+            if(localStorage.getItem("user") === null ||
+            localStorage.getItem("index") === null ||
+            localStorage.getItem("roomname") === null ||
+            localStorage.getItem("user") === "" ||
+            localStorage.getItem("index") === "" ||
+            localStorage.getItem("roomname") === "") {
+                window.location.replace("../../");
+            } else if(currentroom !== rooms[localindex-1] ||
+                localStorage.getItem("user") !== user ||
+                localStorage.getItem("roomname") !== currentroom) {
+                window.location.replace("../../");;
+            }
+        }
+    }, 1000);
+},3000)
 
 
 //code
