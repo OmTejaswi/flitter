@@ -32,7 +32,9 @@ function draw(){
             db.ref("rooms/room"+roomindex+"/messages/message"+i+"/sender").on("value",function(data){
                 senders.push(data.val());
             })
-            limit = 2;
+            if(i === msg) {
+                limit = 2;
+            }
         }
     }
     showMessages();
