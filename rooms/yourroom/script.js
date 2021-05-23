@@ -54,6 +54,9 @@ function showMessages(){
             if(i !== messages.length-1) {
                 document.getElementById("box").innerHTML += "<hr>"
             }
+            if(i === messages.length-1){
+                window.scrollTo(0,document.body.scrollHeight);
+            }   
             msgLimit = 1;
         }
     } 
@@ -73,6 +76,7 @@ setInterval(function(){
                 messages.push(data.val());
                 rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[msg-1]+"</b>&nbsp;<img class='user_tick' src='tick.png'><br><b class='user_message'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+messages[msg-1]+"</b></div>"
             })
+            window.scrollTo(0,document.body.scrollHeight);
             updateMessage = 2;
         }  
     }
