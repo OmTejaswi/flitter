@@ -1,24 +1,9 @@
 //variables
-var names = [];
-var nameslowercase = [];
 var limit = 0;
-var password = [];
 var passcode;
+var use;
+var users;
 
-function draw(){
-    if(limit === 0 ) {
-        for(var i = 1; i < pc+1; i++) {
-            db.ref("users/user"+i+"/name").on("value",function(data){
-                names.push(data.val());
-                nameslowercase.push(data.val().toLowerCase());
-            })
-            db.ref("users/user"+i+"/password").on("value",function(data){
-                password.push(data.val());
-            })
-            limit = 1;
-        }
-    }
-}
 function loaded() {
     setInterval(function(){
         if(limit === 1) {
@@ -37,15 +22,19 @@ var pc;
 db.ref("playerCount").on("value",function(data){
     pc = data.val();
 })
-
+db.ref("users").on("value",function(data){
+     use = data.val();
+     users = JSON.parse(JSON.stringify(use));
+     limit = 1;
+});
 
 function btnPressed(){
     
     
-        if(nameslowercase.includes(document.getElementById("input").value.toLowerCase()) === true) {
+        if(users.hasOwnProperty(document.getElementById("input").value) === true) {
             passcode = prompt("Password:");
             if(passcode !== null) {
-                if(nameslowercase.indexOf(document.getElementById("input").value.toLowerCase()) === password.indexOf(passcode)) {
+                if(users[document.getElementById("input").value].password === passcode) {
                     localStorage.setItem("user",document.getElementById("input").value);
                     window.location.replace("./rooms")
                 }else {
@@ -53,14 +42,16 @@ function btnPressed(){
                 }
             }
             
-        } else if(nameslowercase.includes(document.getElementById("input").value.toLowerCase()) === false) {
+        } else if(users.hasOwnProperty(document.getElementById("input").value) === false) {
                     alert("User Name Does Not Exist");
                  }
 }
 function signup(){
     var user = document.getElementById("input").value;
     if(user !== "" && user !== "YOU".toLowerCase() && user !== "YOU") {
-        if(nameslowercase.includes(document.getElementById("input").value.toLowerCase()) === false) {
+        if(users.hasOwnProperty(document.getElementById("input").value) === false &&
+        users.hasOwnProperty(document.getElementById("input").value.toLowerCase) === false &&
+        users.hasOwnProperty(document.getElementById("input").value.toUpperCase) === false) {
                 passcode = prompt("Set Your Password:");
                 if(passcode !== null) {
                     pc += 1;
@@ -68,16 +59,17 @@ function signup(){
                         playerCount: pc,
                     })
                     localStorage.setItem("user",user);
-                    db.ref("users/user"+pc).update({
+                    db.ref("users/"+user).update({
                         name: user,
                         password: passcode
                     })
-                    names.push(user);
                     window.location.replace("./rooms")
                 }
         }
     }
-    if(nameslowercase.includes(document.getElementById("input").value.toLowerCase()) === true) {
+    if(users.hasOwnProperty(document.getElementById("input").value) === true ||
+    users.hasOwnProperty(document.getElementById("input").value.toLowerCase) === true ||
+    users.hasOwnProperty(document.getElementById("input").value.toUpperCase) === true) {
         alert("Name Already Exists")
     }  
 }

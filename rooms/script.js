@@ -6,7 +6,21 @@ var password = [];
 var limit = 0;
 var roomLimit = 0
 var rows;
+var users;
 var db = firebase.database();
+var load = 0;
+
+db.ref("users").on("value",function(data){
+    users = data.val();
+    load = 1;
+});
+function loaded() {
+    setInterval(function(){
+        if(load === 1) {
+            document.getElementById("loading").style.display = 'none';
+        }
+},1000)
+}
 
     document.getElementById("greet").innerHTML = "Welcome " +user+ " !";
     document.getElementById("addroom").innerHTML = "#Add Room";
@@ -18,7 +32,7 @@ var db = firebase.database();
     var rc;
     db.ref("roomCount").on("value",function(data){
         rc = data.val();
-    })
+    });
 
     function draw(){
         if(limit === 0) {

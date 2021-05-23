@@ -8,6 +8,14 @@ html, body {
   canvas {
     display: block;
   }
+  #loading {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background: #fff url('../loader.svg') no-repeat center;
+    z-index: 9999999;
+  }
   .logoutBtn {
     cursor: pointer;
     background: #36EB8B;

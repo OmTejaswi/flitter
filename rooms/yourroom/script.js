@@ -10,6 +10,7 @@ var messages = [], senders = [];
 var rows;
 var msgLimit = 0;
 var updateMessage = 0;
+var load = 0;
 
 db.ref("roomCount").on("value",function(data){
     rc = data.val();
@@ -34,6 +35,7 @@ function draw(){
             })
             if(i === msg) {
                 limit = 2;
+                load = 1;
             }
         }
     }
@@ -47,7 +49,7 @@ db.ref("rooms/room"+roomindex+"/messages/messageCount").on("value",function(data
 function showMessages(){
     if(msgLimit === 0 && messages.length === msg) {
         for(var i = 0; i < messages.length; i++) {
-            rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'><br><b class='user_message'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+messages[i]+"</b></div>"
+            rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'><br><b class='user_message'><p style='margin: 20px;'>"+messages[i]+"</p></b></div>"
             document.getElementById("box").innerHTML += rows;
             if(i !== messages.length-1) {
                 document.getElementById("box").innerHTML += "<hr>"
@@ -125,6 +127,13 @@ function send(){
         document.getElementById("message").value = "";
         
     }
+}
+function loaded() {
+    setInterval(function(){
+        if(load === 1) {
+            document.getElementById("loading").style.display = 'none';
+        }
+},1000)
 }
 function logout(){
     localStorage.removeItem("index");
