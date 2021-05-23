@@ -34,7 +34,7 @@ function btnPressed(){
         if(users.hasOwnProperty(document.getElementById("input").value) === true) {
             passcode = prompt("Password:");
             if(passcode !== null) {
-                if(users[document.getElementById("input").value].password === passcode) {
+                if(users[document.getElementById("input").value].password.toString() === passcode) {
                     localStorage.setItem("user",document.getElementById("input").value);
                     window.location.replace("./rooms")
                 }else {
