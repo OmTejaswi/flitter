@@ -19,7 +19,14 @@ function draw(){
         }
     }
 }
-
+function loaded() {
+    setInterval(function(){
+        if(limit === 1) {
+            document.getElementById("loading").style.display = 'none';
+            document.getElementById("dis").style.display = '';
+        }
+    },1000)
+}
 
 var username = localStorage.getItem("user");
 document.getElementById("input").value = username; 

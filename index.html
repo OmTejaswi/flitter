@@ -34,35 +34,38 @@
 
     </head>
 
-    <body>
-        <center>
-            <h1 class="header" >	
-               Flitter	
-            <img src="assest/m2.png">
-           </h1>
-           <br>
-           
-                <div class="box">
-                    <br>
-                    <img src="assest/bird.png" style="width: 30%;">
-                    <h3>
-                        
+    <body onload="loaded()">
+        <div id="loading"></div>
+           <div id="dis" style="display: none;">
+            <center>
+                <h1 class="header" >	
+                   Flitter	
+                <img src="assest/m2.png">
+               </h1>
+               <br>
+               
+                    <div class="box">
                         <br>
-                         Connect with the world with Flitter</h3>
-                         <h4 >Join Flitter today</h4>
-                         <label> <b>User Name: </b></label>
-                         <br>
-                         <br>
-                         <input id="input" type="text" style="width: 90%;" id="inp" placeholder="User Name"/> <br><br>
-                         <button class="btns" onclick="btnPressed()"><b>Log in</b></button>
-                         <br>
-                         <br>
-                         <button class="btns" onclick="signup()"><b>Sign Up</b></button>
-                         <br>
-                         <br>
-                         <br>
-                </div>
-        </center>
+                        <img src="assest/bird.png" style="width: 30%;">
+                        <h3>
+                            
+                            <br>
+                             Connect with the world with Flitter</h3>
+                             <h4 >Join Flitter today</h4>
+                             <label> <b>User Name: </b></label>
+                             <br>
+                             <br>
+                             <input id="input" type="text" style="width: 90%;" id="inp" placeholder="User Name"/> <br><br>
+                             <button class="btns" onclick="btnPressed()"><b>Log in</b></button>
+                             <br>
+                             <br>
+                             <button class="btns" onclick="signup()"><b>Sign Up</b></button>
+                             <br>
+                             <br>
+                             <br>
+                    </div>
+            </center>
+           </div>
         <script src="script.js"></script>
         
     </body>
