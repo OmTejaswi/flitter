@@ -51,13 +51,12 @@ db.ref("rooms/room"+roomindex+"/messages/messageCount").on("value",function(data
 function showMessages(){
     if(msgLimit === 0 && messages.length === msg) {
         for(var i = 0; i < messages.length; i++) {
-            rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 0px'>"+messages[i]+"</p></b></div>"
+            rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+messages[i]+"</p></b></div>"
             document.getElementById("box").innerHTML += rows;
             if(i !== messages.length-1) {
                 document.getElementById("box").innerHTML += "<hr>"
             }
             if(i === messages.length-1){
-                document.getElementById("box").innerHTML += "<br>"
                 window.scrollTo(0,document.body.scrollHeight);
             }   
             msgLimit = 1;
@@ -77,7 +76,7 @@ setInterval(function(){
             })
             db.ref("rooms/room"+roomindex+"/messages/message"+msg+"/message").on("value",function(data){
                 messages.push(data.val());
-                rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[msg-1]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px;'>"+messages[msg-1]+"</p></b></div>"
+                rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[msg-1]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+messages[msg-1]+"</p></b></div>"
             })
             window.scrollTo(0,document.body.scrollHeight);
             updateMessage = 2;
