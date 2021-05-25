@@ -1,10 +1,8 @@
 var user = localStorage.getItem("user");
 var greet;
-var roomsName = [];
 var rc;
-var password = [];
+var rooms;
 var limit = 0;
-var roomLimit = 0
 var rows;
 var users;
 var db = firebase.database();
@@ -13,6 +11,10 @@ var load = 0;
 db.ref("users").on("value",function(data){
     users = data.val();
     load = 1;
+});
+db.ref("rooms").on("value",function(data){
+    rooms = data.val();
+    trends();
 });
 function loaded() {
     setInterval(function(){
@@ -33,44 +35,27 @@ function loaded() {
     db.ref("roomCount").on("value",function(data){
         rc = data.val();
     });
-
-    function draw(){
-        if(limit === 0) {
-            for(var i = 1; i < rc+1; i++) {
-                db.ref("rooms/room"+i+"/roomdetails/room").on("value",function(data){
-                 roomsName.push(data.val());
-                }) 
-                db.ref("rooms/room"+i+"/roomdetails/password").on("value",function(data){
-                    password.push(data.val());
-                   }) 
-                limit = 1;
-             }
-        }
-        trends();
-    }
+    
     function trends(){
-        if(roomsName[0] !== undefined) {
-            
-            if(roomLimit === 0 && roomsName.length === rc) {
-                for(var i = 0; i < roomsName.length; i++) {
-                    rows = "<div class='room_name' id="+roomsName[i]+" onclick='redirect(this.id)'  >#"+ roomsName[i] +"</div><br>"
-                    document.getElementById("box").innerHTML += rows;
-                    if(i !== roomsName.length-1) {
-                        document.getElementById("box").innerHTML += "<hr><br>";
-                    }
-                    if( i === roomsName.length-1) {
-                        document.getElementById("box").innerHTML += "<br>";
-                    }
-                    roomLimit = 1;
+        if(limit === 0) {
+            for(var i = 0; i < Object.keys(rooms).length; i++) {
+                rows = "<div class='room_name' id="+Object.keys(rooms)[i]+" onclick='redirect(this.id)'  >#"+ Object.keys(rooms)[i] +"</div><br>"
+                document.getElementById("box").innerHTML += rows;
+                if(i !== Object.keys(rooms).length-1) {
+                    document.getElementById("box").innerHTML += "<hr><br>";
+                }
+                if( i === Object.keys(rooms).length-1) {
+                    document.getElementById("box").innerHTML += "<br>";
                 }
             }
+            limit = 1;
         }
     }
     function redirect(name){
         var passcode = prompt("Password:")
             if(passcode !== null) {
-                if(roomsName.indexOf(name) === password.indexOf(passcode)) {
-                    localStorage.setItem("index",roomsName.indexOf(name)+1)
+                if(rooms[name]['roomdetails'].password === passcode) {
+                    localStorage.setItem("index",Object.keys(rooms).indexOf(document.getElementById("room_name").value)+1)
                     localStorage.setItem("roomname",name);
                     window.location.replace("./yourroom")
                 } else {
@@ -84,34 +69,24 @@ function loaded() {
 function addroom(){
     if(document.getElementById("room_name").value !== "" &&
         document.getElementById("room_password").value !== "") {
-            if(roomsName.includes(document.getElementById("room_name").value.toLowerCase()) === false &&
-            roomsName.includes(document.getElementById("room_name").value.toUpperCase()) === false) {
+            if(rooms.hasOwnProperty(document.getElementById("room_name").value.toLowerCase()) === false &&
+               rooms.hasOwnProperty(document.getElementById("room_name").value.toUpperCase()) === false &&
+               rooms.hasOwnProperty(document.getElementById("room_name").value) === false) {
                 if(document.getElementById("room_name").value.includes(" ") === false &&
                     document.getElementById("room_name").value.charAt(0) !== "#") {
                     rc+= 1;
                     db.ref("/").update({
                         roomCount: rc
                     })
-                    db.ref("rooms/room"+rc+"/roomdetails").update({
+                    db.ref("rooms/"+document.getElementById("room_name").value+"/roomdetails").update({
                         creator: user,
                         room: document.getElementById("room_name").value,
                         password: document.getElementById("room_password").value,
                     });
                     limit = 0;
-                    if(limit === 0) {
-                        for(var i = rc; i < rc+1; i++) {
-                            db.ref("rooms/room"+i+"/roomdetails/room").on("value",function(data){
-                            roomsName.push(data.val());
-                            }) 
-                            db.ref("rooms/room"+i+"/roomdetails/password").on("value",function(data){
-                                password.push(data.val());
-                            }) 
-                            limit = 1;
-                        }
-                    }
-                    localStorage.setItem("roomname",document.getElementById("room_name").value);
-                    if(roomsName.indexOf(document.getElementById("room_name").value) === password.indexOf(document.getElementById("room_password").value)) {
-                        localStorage.setItem("index",roomsName.indexOf(document.getElementById("room_name").value)+1)
+                    if(rooms[document.getElementById("room_name").value]["roomdetails"].password === document.getElementById("room_password").value) {
+                        localStorage.setItem("roomname",document.getElementById("room_name").value);
+                        localStorage.setItem("index",Object.keys(rooms).indexOf(document.getElementById("room_name").value)+1);
                         window.location.replace("./yourroom")
                     } else {
                         alert("Incorrect Password")
@@ -127,10 +102,19 @@ function addroom(){
         }
 }
 
-setInterval(() => {
+setTimeout(() => {
     setInterval(() => {
+        if(limit === 1) {
+            for(i = 0; i < Object.keys(rooms).length; i++) {
+                if(document.getElementById(Object.keys(rooms)[i]) === null) {
+                    rows = "<div class='room_name' id="+Object.keys(rooms)[i]+" onclick='redirect(this.id)'  >#"+ Object.keys(rooms)[i] +"</div><br>"
+                    document.getElementById("box").innerHTML += "<hr><br>";
+                    document.getElementById("box").innerHTML += rows;
+                }
+            }
+        }
         if(localStorage.getItem("user") === null ||
-         localStorage.getItem("user") === "") {
+           localStorage.getItem("user") === "") {
              window.location.replace("../")
          }
     }, 1000);

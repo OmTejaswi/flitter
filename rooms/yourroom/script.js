@@ -11,12 +11,16 @@ var rows;
 var msgLimit = 0;
 var updateMessage = 0;
 var load = 0;
+var users;
 var recive = new Audio("recive.mp3");
 var succesfully = new Audio("sent.mp3")
 
-db.ref("roomCount").on("value",function(data){
-    rc = data.val();
-})
+// db.ref("roomCount").on("value",function(data){
+//     rc = data.val();
+// })
+db.ref("rooms").on("value",function(data){
+    users = data.val();
+});
 
 function draw(){
     if(limit === 0) {
