@@ -1,155 +1,111 @@
-var rooms = [];
-var limit = 0;
-var rc;
-var db = firebase.database();
+var msgCount;
+var db;
+db = firebase.database();
 var user = localStorage.getItem("user");
 var currentroom = localStorage.getItem("roomname");
 var roomindex = localStorage.getItem("index");
-var msg = 0;
-var messages = [], senders = [];
+var meta;
 var rows;
-var msgLimit = 0;
-var updateMessage = 0;
-var load = 0;
-var users;
+var rooms
 var recive = new Audio("recive.mp3");
-var succesfully = new Audio("sent.mp3")
+var succesfully = new Audio("sent.mp3");
+var limit = 0;
 
-// db.ref("roomCount").on("value",function(data){
-//     rc = data.val();
-// })
-db.ref("rooms").on("value",function(data){
-    users = data.val();
+db.ref("rooms/"+currentroom+"/messages/messageCount").on("value", function(data){
+    msgCount = data.val();
 });
 
-function draw(){
-    if(limit === 0) {
-        for(var i = 1; i < rc+1; i++) {
-            db.ref("rooms/room"+i+"/roomdetails/room").on("value",function(data){
-             rooms.push(data.val());
-            }) 
-            limit = 1;
-         }
-    }
-    if(limit === 1) {
-        for(i = 1; i < msg+1; i++) {
-            db.ref("rooms/room"+roomindex+"/messages/message"+i+"/message").on("value",function(data){
-                messages.push(data.val());
-            })
-            db.ref("rooms/room"+roomindex+"/messages/message"+i+"/sender").on("value",function(data){
-                senders.push(data.val());
-            })
-            if(i === msg) {
-                limit = 2;
-                load = 1;
-            }
-        }
-    }
-    showMessages();
-    
-}
-db.ref("rooms/room"+roomindex+"/messages/messageCount").on("value",function(data) {
-    msg = data.val();
-})
+db.ref("rooms").on("value", function(data){
+    rooms = data.val();
+});
 
-function showMessages(){
-    if(msgLimit === 0 && messages.length === msg) {
-        for(var i = 0; i < messages.length; i++) {
-            rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[i]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+messages[i]+"</p></b></div>"
-            document.getElementById("box").innerHTML += rows;
-            if(i !== messages.length-1) {
+db.ref("rooms/"+currentroom+"/messages").on("value", function(data){
+    meta = data.val();
+});
+
+setInterval(() => {
+    if(msgCount === Object.keys(meta).length-1) {
+        showMessages();
+    }
+}, 100);
+
+function showMessages() {
+    if(limit === 0) {
+        for(let i = 1; i < Object.keys(meta).length; i++) {
+            rows = "<div class='conversation' id="+i+"><b class 'textbold'>&nbsp;&nbsp; "+meta['message'+i]['sender']+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+meta['message'+i]['message']+"</p></b></div>";
+            document.getElementById('box').innerHTML += rows;
+            if(i !== Object.keys(meta).length-1) {
                 document.getElementById("box").innerHTML += "<hr>"
             }
-            if(i === messages.length-1){
+            if(i === Object.keys(meta).length-1) {
                 window.scrollTo(0,document.body.scrollHeight);
-            }   
-            msgLimit = 1;
+            }
+            limit = 1;
         }
-    } 
-    
-    
+    }
 }
-setInterval(function(){
-    if(msgLimit === 1 && messages.length !== msg) {
-        updateMessage = 1
-    }
-    if(updateMessage === 1) {
-        if(messages.length !== msg) {
-            db.ref("rooms/room"+roomindex+"/messages/message"+msg+"/sender").on("value",function(data){
-                senders.push(data.val());
-            })
-            db.ref("rooms/room"+roomindex+"/messages/message"+msg+"/message").on("value",function(data){
-                messages.push(data.val());
-                rows = "<div class='conversation'><b class 'textbold'>&nbsp;&nbsp; "+senders[msg-1]+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+messages[msg-1]+"</p></b></div>"
-            })
-            window.scrollTo(0,document.body.scrollHeight);
-            updateMessage = 2;
-        }  
-    }
-    if(updateMessage === 2 && messages.length === msg) {
-        if(msg-2 !== messages.length-1) {
-            document.getElementById("box").innerHTML += "<hr>"
-        }
-       
-        document.getElementById("box").innerHTML += rows;
-        if(senders[senders.length-1] !== user) {
-            recive.play();
-        } else if(senders[senders.length-1] === user) {
-            succesfully.play();
-        }
-        if(msg-1 !== messages.length-1) {
-            document.getElementById("box").innerHTML += "<hr>"
-        }
-        updateMessage = 0;
-    }
-    
-},1000)
 
-setTimeout(function(){
-    setInterval(() => {
-        if(limit === 2) {
-            var localroomindex = rooms.indexOf(localStorage.getItem("roomname"));
-            var localindex = localStorage.getItem("index");
-            if(localStorage.getItem("user") === null ||
-            localStorage.getItem("index") === null ||
-            localStorage.getItem("roomname") === null ||
-            localStorage.getItem("user") === "" ||
-            localStorage.getItem("index") === "" ||
-            localStorage.getItem("roomname") === "") {
-                window.location.replace("../../");
-            } else if(currentroom !== rooms[localindex-1] ||
-                localStorage.getItem("user") !== user ||
-                localStorage.getItem("roomname") !== currentroom) {
-                window.location.replace("../../");;
+function send() {
+    var message = document.getElementById('message').value;
+    if(message !== '') {
+        msgCount += 1;
+        db.ref("rooms/"+currentroom+"/messages").update({
+            messageCount: msgCount
+        });
+        db.ref("rooms/"+currentroom+"/messages/message"+msgCount).update({
+            'sender': user,
+            'message': message
+        });
+        document.getElementById('message').value = '';
+    }
+}
+
+setInterval(() => {
+    if(limit === 1) {
+        if(document.getElementById(msgCount) === null) {
+            rows = "<div class='conversation' id="+msgCount+"><b class 'textbold'>&nbsp;&nbsp; "+meta['message'+msgCount]['sender']+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+meta['message'+msgCount]['message']+"</p></b></div>";
+            document.getElementById('box').innerHTML += "<hr>";
+            document.getElementById("box").innerHTML += rows;
+
+                window.scrollTo(0,document.body.scrollHeight);
+
+            
+            if(meta['message'+msgCount]['sender'] !== user) {
+                recive.play();
+            } else if(meta['message'+msgCount]['sender'] === user) {
+                succesfully.play();
             }
         }
-    }, 1000);
-},3000)
-
-
-//code
-function send(){
-    var usermsg = document.getElementById("message").value;
-    if(usermsg !== "") {
-        msg += 1;
-        db.ref("rooms/room"+roomindex+"/messages").update({
-            messageCount: msg,
-        })
-        db.ref("rooms/room"+roomindex+"/messages/message"+msg).update({
-            message: usermsg,
-            sender: user,
-        })
-        document.getElementById("message").value = "";
-        
-    }
-}
-function loaded() {
-    setInterval(function(){
-        if(load === 1) {
-            document.getElementById("loading").style.display = 'none';
+        for(let i = 1; i < Object.keys(meta).length; i++) {
+            if(document.getElementById(i) === null) {
+                rows = "<div class='conversation' id="+i+"><b class 'textbold'>&nbsp;&nbsp; "+meta['message'+i]['sender']+"</b>&nbsp;<img class='user_tick' src='tick.png'/><br><b class='user_message'><p style='margin-left: 20px; line-height: 15px'>"+meta['message'+i]['message']+"</p></b></div>";
+                document.getElementById("box").innerHTML += rows;
+            }
         }
-},1000)
+    }
+}, 100);
+
+setInterval(() => {
+    if(limit === 1) {
+        if(localStorage.getItem("user") === null ||
+        localStorage.getItem("index") === null ||
+        localStorage.getItem("roomname") === null ||
+        localStorage.getItem("user") === "" ||
+        localStorage.getItem("index") === "" ||
+        localStorage.getItem("roomname") === "") {
+            window.location.replace("../../");
+        } else if(currentroom !== Object.keys(rooms)[roomindex] ||
+            localStorage.getItem("user") !== user ||
+            localStorage.getItem("roomname") !== currentroom) {
+            window.location.replace("../../");;
+        }
+    }
+}, 1000);
+
+function loaded() {
+    document.getElementById("loading").style.display = 'none';
 }
+
 function logout(){
     localStorage.removeItem("index");
     localStorage.removeItem("roomname");

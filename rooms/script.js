@@ -55,7 +55,7 @@ function loaded() {
         var passcode = prompt("Password:")
             if(passcode !== null) {
                 if(rooms[name]['roomdetails'].password === passcode) {
-                    localStorage.setItem("index",Object.keys(rooms).indexOf(document.getElementById("room_name").value)+1)
+                    localStorage.setItem("index",Object.keys(rooms).indexOf(name))
                     localStorage.setItem("roomname",name);
                     window.location.replace("./yourroom")
                 } else {
@@ -86,7 +86,7 @@ function addroom(){
                     limit = 0;
                     if(rooms[document.getElementById("room_name").value]["roomdetails"].password === document.getElementById("room_password").value) {
                         localStorage.setItem("roomname",document.getElementById("room_name").value);
-                        localStorage.setItem("index",Object.keys(rooms).indexOf(document.getElementById("room_name").value)+1);
+                        localStorage.setItem("index",Object.keys(rooms).indexOf(document.getElementById("room_name").value));
                         window.location.replace("./yourroom")
                     } else {
                         alert("Incorrect Password")

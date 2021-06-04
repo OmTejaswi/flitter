@@ -4,13 +4,9 @@
 
         <meta charset="UTF-8">
 
+
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-
-        <script src="../../libraries/p5.js"></script>
-        <script src="../../libraries/p5.play.js"></script>
-        <script src="../../libraries/p5.sound.js"></script>
-        <script src="../../libraries/p5.dom.min.js"></script>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
@@ -36,13 +32,24 @@
     </head>
 
     <body onload="loaded()">
-        <div id="loading">Thanks for choosing Flitter. Sorry for inconvenience but we make down till 05.06.2021 because we are updating our website and including new features. After that we will start our service again. Please be patient we will get back soon.</div>
+        <div id="loading"></div>
+        <script>
+           var DEBUG = false;
+            if(!DEBUG){
+                if(!window.console) window.console = {};
+                var methods = ["log", "debug", "warn", "info"];
+                for(var i=0;i<methods.length;i++){
+                    console[methods[i]] = function(){};
+                }
+            }
+            </script>
+            <button id="logout" class="logoutBtn" onclick="logout()"><b><span class="material-icons"> logout</span> Logout</b></button>
         <center>
             <h1 class="header">	
                 &nbsp; Flitter	
               <img src="../../assest/m2.png">
              </h1>
-             <div id="box"><br></div><br>
+             <div id="box"><br></div><br><br><br><br><br><br><br><br><br><br>
              <div class="input_div">
                  <br>
                  <label>Send:</label> <br><br>
@@ -54,7 +61,6 @@
                  <br>
              </div>
         </center>
-        <button id="logout" class="logoutBtn" onclick="logout()"><b><span class="material-icons"> logout</span> Logout</b></button>
         <script src="script.js"></script>
     </body>
 </html>
