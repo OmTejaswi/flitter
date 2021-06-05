@@ -5,6 +5,31 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 20px;
+  background-color: transparent
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  scroll-behavior: smooth;
+  border-radius: 20px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(141, 141, 141); 
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa; 
+}
+
   #loading {
     position: fixed;
     display: block;

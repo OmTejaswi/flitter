@@ -5,6 +5,31 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
+  /* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: inset rgba(0,0,0,0); 
+  background: inset rgba(0,0,0,0);
+  background: transparent; 
+  scroll-behavior: smooth;
+  border-radius: 20px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(141, 141, 141); 
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa; 
+}
   canvas {
     display: block;
   }
