@@ -4,6 +4,7 @@ html, body {
     background-image: linear-gradient(to left bottom, #48e200, #1cd47e, #13ceb5, #179ce9, #1c6ef3); 
     background-repeat: no-repeat;
     background-attachment: fixed;
+    overflow-x: hidden;
   }
 
 /* width */
