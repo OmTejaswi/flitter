@@ -54,7 +54,8 @@ function send() {
         });
         db.ref("rooms/"+currentroom+"/messages/message"+msgCount).update({
             'sender': user,
-            'message': message
+            'message': message,
+            type: "text"
         });
         document.getElementById('message').value = '';
     }

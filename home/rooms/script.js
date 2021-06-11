@@ -82,6 +82,7 @@ function addroom(){
                         creator: user,
                         room: document.getElementById("room_name").value,
                         password: document.getElementById("room_password").value,
+                        type: "private"
                     });
                     limit = 0;
                     if(rooms[document.getElementById("room_name").value]["roomdetails"].password === document.getElementById("room_password").value) {
