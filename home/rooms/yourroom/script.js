@@ -53,10 +53,11 @@ function send() {
             messageCount: msgCount
         });
         db.ref("rooms/"+currentroom+"/messages/message"+msgCount).update({
-            'sender': user,
-            'message': message,
+            sender: user,
+            message: message,
             type: "text"
         });
+        window.scrollTo(0,document.body.scrollHeight);
         document.getElementById('message').value = '';
     }
 }

@@ -7,30 +7,28 @@ html, body {
   overflow-x: hidden;
 }
 /* width */
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
   width: 10px;
   border-radius: 20px;
+  background-color: transparent
 }
 
-/* Track */
+/* Track 
 ::-webkit-scrollbar-track {
-  background-color: inset rgba(0,0,0,0); 
-  background: inset rgba(0,0,0,0);
-  background: transparent; 
   scroll-behavior: smooth;
   border-radius: 20px;
-}
+} 
  
-/* Handle */
+/* Handle 
 ::-webkit-scrollbar-thumb {
   background: rgb(141, 141, 141); 
   border-radius: 15px;
 }
 
-/* Handle on hover */
+/* Handle on hover 
 ::-webkit-scrollbar-thumb:hover {
   background: #aaaaaa; 
-}
+}  */
 #loading {
   position: fixed;
   display: block;
