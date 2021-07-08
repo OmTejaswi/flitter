@@ -50,7 +50,7 @@
                     <br>
                     <button
                         style="margin-left: 20px; background-color: #faad39; color: white; border-radius: 18px; width: 55%; height: 35px; border: 1px solid black;"
-                        onclick="redirect();">Take Me Home</button>
+                        onclick="redirect();" id="btn">Take Me Home</button>
                 </td>
             </tr>
         </table>
@@ -60,6 +60,10 @@
         function redirect() {
             window.location.replace("./");
         }
+
+        setTimeout(() => {
+            redirect();
+        }, 5000);
     </script>
 
 </body>
