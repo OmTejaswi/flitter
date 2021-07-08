@@ -1,40 +1,67 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Flitter
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
 
-    <style>
-      html{
-        font-size: 10px;
-      }
-    </style>
+<head>
+    <title>
+        Flitter
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
-    <body>
-       <!-- <div style="margin-left: 30%; margin-top: 6%;">
-         <span style=" color: #ffeed0; font-size: 130px">
-            404
-          </span>
-          <div style="position: absolute; left: 47%; top: 17%;">
-          <span style="color: #b1a79c; font-size: xx-large; top: 10em;">Oops! you found me</span>
-          <span style="color: #d4cbc1;"> <br>
-             This Page Does Not Exists
-            </span>
-          </div>
-        </div> -->
-        <p style="position: absolute; margin-left: 40rem; margin-top: 10rem;">
-          <div style=" color: #ffeed0; font-size: 12em;">
-              404
-          </div>
-          <div style="margin-left: 10em; font-size: 2em;">
-            Opps! you found me!
-          </div>
-        </p>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    html,
+    body {
+        height: 100%;
+        font-size: 13px;
+    }
+
+    .bgimg {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        background: url("404_auto_x2_auto_x2.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+</style>
+
+<body>
+
+    <div class="bgimg">
+        <table style="margin-left: 25%; margin-top: 30px;">
+            <tr>
+                <td>
+                    <div style="color: #ffeed0; font-size: 10em;">
+                        404
+                    </div>
+                </td>
+                <td>
+                    <div style="color: #9b9996; font-size: 2em; margin-left: 20px;">
+                        Opps! you found me! <br> </div>
+                    <div style="color: #b8b3ad; font-size: medium; margin-left: 20px;">This Page Does Not Exists</div>
+                    <br>
+                    <button
+                        style="margin-left: 20px; background-color: #faad39; color: white; border-radius: 18px; width: 55%; height: 35px; border: 1px solid black;"
+                        onclick="redirect();">Take Me Home</button>
+                </td>
+            </tr>
+        </table>
     </div>
-    </body>
+
+    <script>
+        function redirect() {
+            window.location.replace("./");
+        }
+    </script>
+
+</body>
+
 </html>
